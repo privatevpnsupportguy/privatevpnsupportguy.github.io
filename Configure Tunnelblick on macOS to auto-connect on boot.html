@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configure Tunnelblick on macOS to auto-connect on boot</title>
+  <link rel="stylesheet" href="Configure%20Tunnelblick%20on%20macOS%20to%20auto-connect%20on%20boot_files/style.css">
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h2 id="center"><center><a href="https://privatevpn.com/"><img src="Configure%20Tunnelblick%20on%20macOS%20to%20auto-connect%20on%20boot_files/pvpn_logo.png" alt="PrivateVPN"></a></center></h2>
+<h2 id="centerconfigure-tunnelblick-on-macos-to-auto-connect-on-boot"><center>Configure Tunnelblick on macOS to auto-connect on boot</center></h2>
+<p><a href="https://privatevpn.com/">PrivateVPN.com</a> offers an easy to use <a href="https://privatevpn.com/client/PrivateVPN1.1.pkg">VPN application for macOS</a>.</p>
+<p>That being so, our VPN client is not mandatory to enjoy our OpenVPN 
+servers. In this guide we are going to configure Tunnelblick openvpn 
+client to auto-connect on boot as the title suggests.</p>
+<p>Before, we start, I assume you already installed Tunnelblick on your Mac, if not then go through our other guide first.</p>
+<p><strong>Let’s start</strong></p>
+<p><strong>Step 1 - Pick a single client configuration</strong></p>
+<p>In order for this guide to function, you need to make sure that you 
+only have a single configuration imported in Tunnelblick. For the 
+purpose of this guide we are going to use OpenVPN-TUN TCP configuration 
+from Stockholm in Sweden because my Mac is behind an office firewall 
+mostly.</p>
+<p><strong>Step 2 - Configure Tunnelblick client</strong></p>
+<p>Navigate to <strong>VPN Details</strong> option from Tunnelblick icon at your top Menu Bar on Mac.</p>
+<p><img src="Configure%20Tunnelblick%20on%20macOS%20to%20auto-connect%20on%20boot_files/Screen_Shot_2017-11-09_at_7_004.png" alt="enter image description here"></p>
+<p>In VPN details,  click on the <strong>Settings</strong> tab. In Settings tab page, change the <strong>Connect</strong> option to <strong>“When Tunnelblick launches”</strong> and click on Advanced button.</p>
+<p><img src="Configure%20Tunnelblick%20on%20macOS%20to%20auto-connect%20on%20boot_files/Screen_Shot_2017-11-09_at_7_003.png" alt="enter image description here"></p>
+<p>In <strong>Advanced Settings</strong> page, under <strong>Connecting &amp; Disconnecting</strong> tab, tick <strong>Keep connected</strong> option to enable it and you may now close all option Tunnelblick settings pages. That’s all.</p>
+<p><img src="Configure%20Tunnelblick%20on%20macOS%20to%20auto-connect%20on%20boot_files/Screen_Shot_2017-11-09_at_7_002.png" alt="enter image description here"></p>
+<blockquote>
+<p>Note: It does not mean you should ‘Quit Tunnelblick’ from Top Menu 
+Bar now, if you do this guide would not work for you. As Tunnelblick is 
+set to auto-start on boot by default unless you manual quit it.</p>
+</blockquote>
+<p><strong>Step 3 - Connect to configured VPN server</strong></p>
+<p>Navigate to the <strong>Connect</strong> option  (<strong>Connect PrivateVPN-SE-Stockholm-TUN-443</strong> in my case) from Tunnelblick icon at your top Menu Bar on Mac again and click to connect.</p>
+<p><img src="Configure%20Tunnelblick%20on%20macOS%20to%20auto-connect%20on%20boot_files/Screen_Shot_2017-11-09_at_7_004.png" alt="enter image description here"></p>
+<p>A dialog box appears requiring your <strong>PrivateVPN</strong> username and password. Kindly input your credentials and check/tick <strong>Save in Keychain</strong> option for both as shown in the image below. Click <strong>OK</strong> to continue.</p>
+<p><img src="Configure%20Tunnelblick%20on%20macOS%20to%20auto-connect%20on%20boot_files/Screen_Shot_2017-11-09_at_9.png" alt="enter image description here"></p>
+<p>If everything is good, it will connect successfully.</p>
+<p><img src="Configure%20Tunnelblick%20on%20macOS%20to%20auto-connect%20on%20boot_files/Screen_Shot_2017-11-09_at_7.png" alt="enter image description here"></p>
+<p><strong>Step 4 - Restart your Mac</strong></p>
+<p>The reason why we configured our client is to get our VPN up 
+automatically when Mac starts. So, you need to restart your Mac and you 
+should automatically get connected to the configured PrivateVPN 
+location.</p>
+<p>Visit <a href="https://privatevpn.com/">PrivateVPN.com</a> to make sure it works!</p>
+</div>
+
+
+
+</body></html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenVPN on Windows with Official OpenVPN GUI client</title>
+  <link rel="stylesheet" href="OpenVPN%20on%20Windows%20with%20Official%20OpenVPN%20GUI%20client_files/style.css">
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h2 id="center"><center><a href="https://privatevpn.com/"><img src="OpenVPN%20on%20Windows%20with%20Official%20OpenVPN%20GUI%20client_files/pvpn_logo.png" alt="PrivateVPN"></a></center></h2>
+<h2 id="centeropenvpn-on-windows-with-official-openvpn-gui-client"><center>OpenVPN on Windows with Official OpenVPN GUI client</center></h2>
+<p><strong>Step 1 - Download OpenVPN GUI client and our OpenVPN client configuration files</strong></p>
+<p>For Windows XP 32-bit - Download latest OpenVPN GUI client from <a href="http://build.openvpn.net/downloads/releases/latest/openvpn-install-latest-winxp-i686.exe">here.</a></p>
+<p>For Windows XP 64-bit - Download latest OpenVPN GUI client from <a href="http://build.openvpn.net/downloads/releases/latest/openvpn-install-latest-winxp-x86_64.exe">here.</a></p>
+<p>For Windows Vista or newer - Download latest OpenVPN GUI client from <a href="http://build.openvpn.net/downloads/releases/latest/openvpn-install-latest-stable.exe">here.</a></p>
+<p>Download <a href="https://privatevpn.com/">PrivateVPN</a> OpenVPN client configuration files for Windows XP from <a href="https://github.com/privatevpnsupportguy/a/blob/master/PrivateVPN-TUN-CBC.zip">here.</a></p>
+<p>Download <a href="https://privatevpn.com/">PrivateVPN</a> OpenVPN client configuration files for Windows 7 or newer from <a href="https://privatevpn.com/client/PrivateVPN-TUN.zip">here.</a></p>
+<p><img src="OpenVPN%20on%20Windows%20with%20Official%20OpenVPN%20GUI%20client_files/0.jpg" alt="enter image description here"></p>
+<p><strong>Step 2 - Install OpenVPN GUI client</strong></p>
+<p>Navigate to Downloads folder and double click the <strong>openvpn-install-*.exe</strong> file.</p>
+<p>User account control dialog box prompts for permission, click <strong>Yes</strong> to continue.</p>
+<p><img src="OpenVPN%20on%20Windows%20with%20Official%20OpenVPN%20GUI%20client_files/1.jpg" alt="enter image description here"></p>
+<p>OpenVPN installer is an easy to follow Wizard, click <strong>Next</strong> to begin installation</p>
+<p><img src="OpenVPN%20on%20Windows%20with%20Official%20OpenVPN%20GUI%20client_files/2.jpg" alt="enter image description here"></p>
+<p>Click <strong>I Agree</strong> to continue.</p>
+<p><img src="OpenVPN%20on%20Windows%20with%20Official%20OpenVPN%20GUI%20client_files/agree.png" alt="enter image description here"></p>
+<p>Click <strong>Next</strong> to continue</p>
+<p><img src="OpenVPN%20on%20Windows%20with%20Official%20OpenVPN%20GUI%20client_files/3.jpg" alt="enter image description here"></p>
+<p>In Windows security dialogue box, click <strong>Install</strong> to install the TAP-driver, a virtual network device required for OpenVPN to function.</p>
+<p><img src="OpenVPN%20on%20Windows%20with%20Official%20OpenVPN%20GUI%20client_files/4.jpg" alt="enter image description here"></p>
+<p>Click <strong>Finish</strong>.  OpenVPN GUI client installation is done.</p>
+<p><img src="OpenVPN%20on%20Windows%20with%20Official%20OpenVPN%20GUI%20client_files/5.jpg" alt="enter image description here"></p>
+<p><strong>Step 3 - Import PrivateVPN OpenVPN client configuration files</strong></p>
+<p>Navigate to Downloads folder and extract <em>PrivateVPN-TUN.zip</em> file that you downloaded in Step 1. Extract it. Open <strong>UDP</strong> (recommended) or TCP folder inside extracted PrivateVPN-TUN folder.</p>
+<p>Select any 50 configuration files that you wish to import in OpenVPN 
+GUI client. Sadly, official client do not support importing more than 50
+ OpenVPN client configuration files. Copy them.</p>
+<p><img src="OpenVPN%20on%20Windows%20with%20Official%20OpenVPN%20GUI%20client_files/6.jpg" alt="enter image description here"></p>
+<p>Navigate to <strong>Program Files - OpenVPN - config</strong> folder 
+of your main Windows installation and paste the copied OpenVPN client 
+configuration files in there. A dialog box appears to seek 
+Administrative permissions, click <strong>Continue.</strong> Also do not forget to tick <strong>Do this for all current items</strong> in the same dialog box.</p>
+<p><img src="OpenVPN%20on%20Windows%20with%20Official%20OpenVPN%20GUI%20client_files/8.jpg" alt="enter image description here"></p>
+<p><strong>Step 4 - Connecting to PrivateVPN’s OpenVPN servers</strong></p>
+<p>Double click OpenVPN GUI icon on the desktop to open OpenVPN GUI 
+client if not already. Find the OpenVPN GUI icon in right side of task 
+bar as show in the image below and right click to select a location you 
+wish to Connect to.</p>
+<p><img src="OpenVPN%20on%20Windows%20with%20Official%20OpenVPN%20GUI%20client_files/9.jpg" alt="enter image description here"></p>
+<p>OpenVPN - User Authentication dialogue box appears, input your <a href="http://privatevpn.com/">PrivateVPN.com</a> username and password and click OK to continue. Also you can tick Save password option if you like.</p>
+<p><img src="OpenVPN%20on%20Windows%20with%20Official%20OpenVPN%20GUI%20client_files/10.jpg" alt="enter image description here"></p>
+<p>A notification on the bottom right appear stating that you are not connected to PrivateVPN’s OpenVPN server.</p>
+<p><img src="OpenVPN%20on%20Windows%20with%20Official%20OpenVPN%20GUI%20client_files/11.jpg" alt="enter image description here"></p>
+<p>Navigate to a <a href="http://privatevpn.com/">PrivateVPN.com</a> in a web browser to check if you are connected. Enjoy your encrypted Internet!</p>
+</div>
+
+
+
+</body></html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to connect to PrivateVPN’s OpenVPN servers over Tor?</title>
+  <link rel="stylesheet" href="How%20to%20connect%20to%20PrivateVPN%E2%80%99s%20OpenVPN%20servers%20over%20Tor%3F_files/style.css">
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h2 id="center"><center><a href="https://privatevpn.com/"><img src="How%20to%20connect%20to%20PrivateVPN%E2%80%99s%20OpenVPN%20servers%20over%20Tor%3F_files/pvpn_logo.png" alt="PrivateVPN"></a></center></h2>
+<h2 id="center--how-to-connect-to-privatevpns-openvpn-servers-over-tor"><center>﻿﻿How to connect to PrivateVPN’s OpenVPN servers over Tor?</center></h2>
+<p>Most people using VPNs are privacy conscious and then there are some 
+paranoid ones. We won’t judge you given a lot of revelations about 
+intelligence agencies worldwide in recent times.</p>
+<p><strong>What is VPN over Tor?</strong></p>
+<p>A phrase used to define a VPN connection that uses Tor network to connect to the VPN servers. So, it is like this:</p>
+<p>You &gt; Tor &gt; VPN &gt; World</p>
+<p>In other words, it basically means connecting to PrivateVPN without 
+exposing your home IP to PrivateVPN as Tor acts as a bridge in between. 
+Tor is a solid anonymity tool. Hence providing you with a dual layer to 
+privacy, security and anonymity.</p>
+<p><strong>Step 1 - Download and install TBB (Tor Browser Bundle)</strong></p>
+<p>A fresh copy of TBB for your operating system can be downloaded from <a href="https://www.torproject.org/download/download-easy.html.en">here.</a></p>
+<p><img src="How%20to%20connect%20to%20PrivateVPN%E2%80%99s%20OpenVPN%20servers%20over%20Tor%3F_files/Screenshot_20171112_015530.png" alt="enter image description here"></p>
+<p>Navigate to Downloads folder, look <strong>.exe</strong> or .<strong>dmg</strong>
+ file for Tor Browser Bundle on Windows or Mac respectively and double 
+click to install. Installation is easy and straight forward. On 
+GNU/Linux you just need to download tar file and extract it like I did.</p>
+<p><img src="How%20to%20connect%20to%20PrivateVPN%E2%80%99s%20OpenVPN%20servers%20over%20Tor%3F_files/Screenshot_20171112_004014.png" alt="enter image description here"></p>
+<p>On first run, a dialog box appears asking you to either <strong>Connect</strong> to Tor or configure it with other settings.</p>
+<p><img src="How%20to%20connect%20to%20PrivateVPN%E2%80%99s%20OpenVPN%20servers%20over%20Tor%3F_files/Screenshot_20171112_013215.png" alt="enter image description here"></p>
+<p>Click on the <strong>Connect</strong> button and let it connect.</p>
+<p><img src="How%20to%20connect%20to%20PrivateVPN%E2%80%99s%20OpenVPN%20servers%20over%20Tor%3F_files/Screenshot_20171112_013346.png" alt="enter image description here"></p>
+<p>Upon successful connection a screen as shown below will appear:</p>
+<p><img src="How%20to%20connect%20to%20PrivateVPN%E2%80%99s%20OpenVPN%20servers%20over%20Tor%3F_files/Screenshot_20171112_013405.png" alt="enter image description here"></p>
+<p>Now open <a href="https://privatevpn.com/">PrivateVPN</a> or any 
+other website of your choice in TBB and click on the green Onion button 
+to the left of address bar in TBB. There you will find the tor’s current
+ circuit information containing your <strong>Entry | Middle | Exit</strong> nodes as seen in the image below. The first node is the <strong>entry or guard node</strong> is important to us as it does not change to often, please make a note of it. Here the Entry or Guard node is <strong>95.211.224.12</strong>.</p>
+<p><img src="How%20to%20connect%20to%20PrivateVPN%E2%80%99s%20OpenVPN%20servers%20over%20Tor%3F_files/Screenshot_20171112_020200.png" alt="enter image description here"></p>
+<blockquote>
+<p>Tor Entry or Guard node doesn’t change too often at all. But in case 
+it does after a while or upon a fresh download of TBB by you, Make sure 
+you replace it in the .ovpn file.</p>
+</blockquote>
+<p><strong>Step 2 - Pick a PrivateVPN TCP OpenVPN configuration and edit it</strong></p>
+<p>You can download raw OpenVPN configuration files (UDP &amp; TCP) for PrivateVPN in <strong>.zip</strong> file from <a href="https://privatevpn.com/client/PrivateVPN-TUN.zip">here.</a></p>
+<p>Since Tor works with TCP protocol only, I am going to use <strong>PrivatVPN-IN-Chennai-TUN-443.ovpn</strong> from TCP folder for the purpose of this guide.</p>
+<p>Open <strong>.ovpn</strong> in a text editor and add the following lines:</p>
+<pre><code># tor options
+socks-proxy 127.0.0.1 9150
+route [Entry or Guard node IP] 255.255.255.255 net_gateway
+</code></pre>
+<blockquote>
+<p>For GNU/linux, <strong>net_gateway</strong> will not work and hence you have to use your default gateway IP which you can find using <strong>route</strong> command very easily. For example my default gateway is 192.168.0.1, so above route entry in my case would be:</p>
+<p><code>route [Entry or Guard node IP] 255.255.255.255 192.168.0.1</code></p>
+</blockquote>
+<p>You need to replace [Entry or Guard node IP] with the Entry node’s IP. In my case Entry or Guard node is <strong>95.211.224.12</strong>. So, I would edit my .ovpn as follows:</p>
+<p><img src="How%20to%20connect%20to%20PrivateVPN%E2%80%99s%20OpenVPN%20servers%20over%20Tor%3F_files/Screenshot_20171112_021010.png" alt="enter image description here"></p>
+<p>Save the edit .ovpn configuration file and exit.</p>
+<p><strong>Step 3 - Connect to PrivateVPN’s OpenVPN server over Tor</strong></p>
+<p>Import the edited .ovpn file in OpenVPN client for your OS 
+respectively and connect as usual. Make sure Tor Browser Bundle is 
+running and it should work fine.</p>
+<p>Congrats! You are now connected to our OpenVPN server over Tor.</p>
+<p>Thanks! Have fun.</p>
+</div>
+
+
+
+</body></html>
