@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Setup manual kill switch for OpenVPN GUI on Windows</title>
+  <link rel="stylesheet" href="Setup%20manual%20kill%20switch%20for%20OpenVPN%20GUI%20on%20Windows_files/style.css">
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h2 id="center"><center><a href="https://privatevpn.com/"><img src="Setup%20manual%20kill%20switch%20for%20OpenVPN%20GUI%20on%20Windows_files/pvpn_logo.png" alt="PrivateVPN"></a></center></h2>
+<h2 id="centersetup-manual-kill-switch-for-openvpn-gui-on-windows"><center>Setup manual kill switch for OpenVPN GUI on Windows</center></h2>
+<blockquote>
+<p><strong>PrivateVPN</strong> offers easy to use application for <a href="https://privatevpn.com/support/getting-started/windows/windows-10/privatevpn-app">Windows OS</a>. Our VPN client includes solid kill switch and other leaks protection, it is highly recommended that you use it.</p>
+</blockquote>
+<p>Albeit, if you wish to use opensource OpenVPN GUI client to connect 
+to our service. You should read further on how to setup a basic kill 
+switch to prevent unencrypted Internet access causing leaks upon an 
+abrupt disconnection.</p>
+<p>It is really important for example when your PC is torrenting while you are away from keyboard.</p>
+<p><strong>Step 1 - Connect to PrivateVPN OpenVPN server of your choice</strong></p>
+<p>Follow the remaining steps only when have successful connected.</p>
+<p><strong>Step 2 - Open Command Prompt as Adminstrator</strong></p>
+<p>Search for Command Prompt in Start Menu and right click it to open it
+ as Administrator, grant Administrative rights when prompted to 
+continue.</p>
+<p><strong>Step 3 - Delete the default Internet route</strong></p>
+<p>Use route command to delete the default Internet route to prevent Internet access at all when VPN disconnects.</p>
+<pre><code>route delete 0.0.0.0
+</code></pre>
+<p><img src="Setup%20manual%20kill%20switch%20for%20OpenVPN%20GUI%20on%20Windows_files/1.jpg" alt="enter image description here"></p>
+<p>Command Prompt would return <strong>OK!</strong> as confirmation. You
+ have successfully setup a basic VPN kill switch for Windows OS. In 
+order to restore your default routes again follow the below step.</p>
+<hr>
+<p><strong>Restore default Internet route</strong></p>
+<p>In order to restore default Internet route, all you need to do is Disable and Enable your main network adapter.</p>
+<p><img src="Setup%20manual%20kill%20switch%20for%20OpenVPN%20GUI%20on%20Windows_files/2.jpg" alt="enter image description here"></p>
+<p>Navigate to Network Connections in Control Panel. Select and right click on your main network adapter and click <strong>Disable</strong>. <strong>Enable</strong> it again similarly.</p>
+<p><img src="Setup%20manual%20kill%20switch%20for%20OpenVPN%20GUI%20on%20Windows_files/3.jpg" alt="enter image description here"></p>
+<p>That is all. You have restored your default Internet routes.</p>
+</div>
+
+
+
+</body></html>

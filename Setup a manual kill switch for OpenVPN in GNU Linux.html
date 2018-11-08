@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Setup a manual kill switch for OpenVPN in GNU Linux</title>
+  <link rel="stylesheet" href="Setup%20a%20manual%20kill%20switch%20for%20OpenVPN%20in%20GNU%20Linux_files/style.css">
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h2 id="center"><center><a href="https://privatevpn.com/"><img src="Setup%20a%20manual%20kill%20switch%20for%20OpenVPN%20in%20GNU%20Linux_files/pvpn_logo.png" alt="PrivateVPN"></a></center></h2>
+<h2 id="centersetup-a-manual-kill-switch-for-openvpn-in-gnulinux"><center>Setup a manual kill switch for OpenVPN in GNU/Linux</center></h2>
+<p><strong>Mission:</strong></p>
+<p>Create a manual kill switch or VPN firewall for GNU/Linux to prevent 
+any leaks including but not limited to DNS leaks outside VPN network at 
+all by completely denying Internet access on a given system without an 
+active encrypted <strong>PrivateVPN</strong> connection.</p>
+<blockquote>
+<p>Note: Other online guides might suggest you to allow DNS queries via 
+your default gateway but I don’t recommend it. So, if you wish to allow 
+it, you are at liberty to do so.</p>
+</blockquote>
+<p><strong>Prerequisites:</strong></p>
+<ul>
+<li>IP address of the VPN gateway you wish to setup for VPN kill switch.</li>
+</ul>
+<p>For the purpose of this guide I am going to use PrivateVPN’s 
+OpenVPN-TUN-UDP server in Chennai, India bearing an IP address: 
+169.38.69.24.</p>
+<p>In order to find out the IP address of VPN gateway, open <a href="https://privatevpn.com/serverlist/">https://privatevpn.com/serverlist/</a>
+ and copy a server’s hostname from Server Address column. Use host 
+command in a terminal window followed by the hostname. Syntax for host 
+command in this case would be:</p>
+<pre><code>$ host in-che.privatevpn.com
+in-che.privatevpn.com has address 169.38.69.24
+</code></pre>
+<ul>
+<li>Name of the network interface connected to your default gateway or Internet.</li>
+</ul>
+<p>For the purpose of this guide I am going to use <em><strong>wlp6s0</strong></em> as network interface.</p>
+<p>In order to find out your Internet facing network interface name use <strong>route</strong> command. Keep in mind it requires root or sudo access. Syntax for route command would be:</p>
+<pre><code># route
+</code></pre>
+<p><img src="Setup%20a%20manual%20kill%20switch%20for%20OpenVPN%20in%20GNU%20Linux_files/Screenshot_20170806_182215.png" alt="enter image description here" title="route command output"></p>
+<ul>
+<li>Changes in Client .ovpn configuration file as follows:</li>
+</ul>
+<p>Open .ovpn configuration file in a text editor, look for <strong>remote</strong> option and replace the hostname or servername therein with IP address as seen in the image below:</p>
+<p><img src="Setup%20a%20manual%20kill%20switch%20for%20OpenVPN%20in%20GNU%20Linux_files/1.jpg" alt="enter image description here"></p>
+<hr>
+<p><strong>Let’s roll.</strong></p>
+<p>Majority of GNU/Linux users either use iptables or ufw to manage 
+their firewall. We have written separate sections for both tools below 
+for your convenience.</p>
+<p><strong>a. VPN killswitch or firewall using <em>iptables</em></strong></p>
+<p>(Note: You are advised to backup your current iptables ruleset with <em>iptables-save</em>)</p>
+<p><em>iptables</em> ruleset is already written for you.  Here take a look:</p>
+<pre><code>#!/bin/bash
+iptables --flush
+iptables --delete-chain
+iptables -t nat --flush
+iptables -t nat --delete-chain
+iptables -P OUTPUT DROP
+iptables -A INPUT -j ACCEPT -i lo
+iptables -A OUTPUT -j ACCEPT -o lo
+iptables -A OUTPUT -j ACCEPT -d 169.38.69.24/32 -o wlp6s0 -p udp -m udp --dport 1194
+iptables -A INPUT -j ACCEPT -s 169.38.69.24/32 -i wlp6s0 -p udp -m udp --sport 1194
+iptables -A INPUT -j ACCEPT -i tun0
+iptables -A OUTPUT -j ACCEPT -o tun0
+</code></pre>
+<p>Above iptable rule set expunges every pre-exiting rule set in 
+iptables and outrightly drops every outgoing connection other than to 
+PrivateVPN’s OpenVPN server’s IP in India that to at a particular port 
+(port 1194) using a specific protocol (udp). Also all incoming and 
+outgoing connections are allowed over virtual network interface <em>tun0</em> exclusively.</p>
+<p>You can copy <em>iptables</em> rule set from above and save it as <strong><a href="http://iptables-ks.sh/">iptables-ks.sh</a></strong> for your convenience to edit/execute them.</p>
+<p>In order to activate <em>iptables</em> rule set in <em><a href="http://iptables-ks.sh/">iptables-ks.sh</a></em> for deploying a Kill switch, open a terminal with root/sudo rights and do as follows:</p>
+<pre><code># chmod +x iptables-ks.sh
+# ./iptables-ks.sh
+</code></pre>
+<p>Congrats! Your VPN kill switch or firewall is active</p>
+<p>These settings are temporary and would be wiped upon reboot. In order to prevent it you might need to install “<strong>iptables-persistent</strong>” package for your distribution.</p>
+<p>Or set it to run on boot by adding this line to the end of /etc/crontab:</p>
+<pre><code>@reboot root /path/iptables-ks.sh
+</code></pre>
+<p><strong>b. Hello “ufw” users.</strong><br>
+(Note: We recommend you to backup your current firewall ruleset.)</p>
+<p>I already wrote ufw ruleset for you.  Here take a look:</p>
+<pre><code>ufw --force reset
+ufw default deny incoming
+ufw default deny outgoing 
+ufw allow in on tun0
+ufw allow out on tun0
+ufw allow out on wlp6s0 to 169.38.69.24 port 1194  proto udp
+ufw allow in on wlp6s0 from 169.38.69.24 port 1194 proto udp
+ufw enable
+</code></pre>
+<p>You can copy the ufw rules from above and save it as <a href="http://ufw-ks.sh/">ufw-ks.sh</a> for your convenience to edit/execute them.</p>
+<p>Open a terminal and gain sudo access or root access and do as follows:</p>
+<pre><code># chmod +x ufw-ks.sh
+# ./ufw-ks.sh
+</code></pre>
+<p>Congrats! Your VPN kill switch or firewall is active.</p>
+<p>You can add multiple-servers in the same kill switch script. Just add additional lines for that particular server too.</p>
+<p>For example these two lines to above mentioned <em><a href="http://ufw-ks.sh/">ufw-ks.sh</a></em> would also allow connection to Icelandic server other than Indian VPN server:</p>
+<pre><code>ufw allow out on wlp6s0 to 82.221.113.210 port 1194  proto udp
+ufw allow in on wlp6s0 from 82.221.113.210 port 1194 proto udp
+</code></pre>
+<hr>
+<p>Thanks for reading! Enjoy!</p>
+</div>
+
+
+
+</body></html>

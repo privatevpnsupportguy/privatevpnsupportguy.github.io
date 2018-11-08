@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configure L2TP IPsec with Network Manager</title>
+  <link rel="stylesheet" href="Configure%20L2TP%20IPsec%20with%20Network%20Manager_files/style.css">
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h2 id="center"><center><a href="https://privatevpn.com/"><img src="Configure%20L2TP%20IPsec%20with%20Network%20Manager_files/pvpn_logo.png" alt="PrivateVPN"></a></center></h2>
+<h2 id="center-configure-l2tpipsec-with-network-manager---gnome-edition-works-for-unity-too"><center>﻿Configure L2TP/IPsec with Network Manager - Gnome Edition (Works for Unity too)</center></h2>
+<p>In this guide we will learn how to configure Network Manager’s L2TP/IPsec plugin with one of our server location.</p>
+<p>For the purpose of this guide, I am going to use PrivateVPN’s L2TP/IPsec server in India.</p>
+<p><strong>Step 1 - Installing L2TP/IPsec plugin for Network Manager</strong></p>
+<p>Install L2TP/IPsec with Network Manager plugin from a terminal window:</p>
+<pre><code>sudo apt-get install network-manager-l2tp network-manager-l2tp-gnome
+</code></pre>
+<p><strong>Step 2 - Setup a L2TP/IPsec Profile in Network Manager’s plugin</strong></p>
+<p>From the Gnome Menu - open All settings and click Network, as shown in the picture below.</p>
+<p><img src="Configure%20L2TP%20IPsec%20with%20Network%20Manager_files/ovpn1.png" alt="enter image description here"></p>
+<p>From the Network setting page, click + to add a L2TP/IPsec VPN profile as shown in the picture below.</p>
+<p><img src="Configure%20L2TP%20IPsec%20with%20Network%20Manager_files/ovpn2.png" alt="enter image description here"><br>
+<img src="Configure%20L2TP%20IPsec%20with%20Network%20Manager_files/l2tp1.png" alt="enter image description here"></p>
+<p>In the next dialog window, Under Identity tab, enter a profile <strong>Name, Gateway</strong> or server address from <a href="https://privatevpn.com/serverlist">https://privatevpn.com/serverlist</a> and also input your PrivateVPN credentials and click <strong>IPsec Setting…</strong></p>
+<p><img src="Configure%20L2TP%20IPsec%20with%20Network%20Manager_files/l2tp-domain.png" alt="enter image description here"></p>
+<blockquote>
+<p><strong>If you are from China or Middle East (UAE etc),</strong> server address in <strong>Gateway</strong> is useless, because <a href="http://privatevpn.com/">PrivateVPN.com</a>
+ domain name is blocked in your country and hence it won’t resolve to an
+ IP address resulting is no connection. So, it is advised to use Server 
+IP address instead as show in following image and it should be fine 
+then.</p>
+<p><img src="Configure%20L2TP%20IPsec%20with%20Network%20Manager_files/l2tp-ip.png" alt="enter image description here"></p>
+</blockquote>
+<p>In L2TP IPsec Options, Tick <strong>Enable IPsec tunnel to L2TP host</strong> and input <strong>Pre-shared key</strong> as <strong>privatvpn</strong> and click OK to continue.</p>
+<p><img src="Configure%20L2TP%20IPsec%20with%20Network%20Manager_files/l2tp-advanced.png" alt="enter image description here"></p>
+<p>Click Apply to add L2TP Profile to Network Manager’s plugin.</p>
+<p><strong>Step 4 - Connect</strong></p>
+<p>Now lets get you connected to PrivateVPN’s L2TP server over IPsec. 
+From the Gnome Menu Bar just turn ON the VPN server location you want to
+ connect to and that is all.</p>
+<p><img src="Configure%20L2TP%20IPsec%20with%20Network%20Manager_files/l2tp-connect.png" alt="enter image description here"></p>
+<blockquote>
+<p>Note: You would only see Connect option under VPN if you have only one server location added.</p>
+</blockquote>
+<p>Once connected you will see a lock sign as seen in the image below.</p>
+<p><img src="Configure%20L2TP%20IPsec%20with%20Network%20Manager_files/ovpn7.png" alt="enter image description here"></p>
+<p>Enjoy your encrypted Internet!</p>
+</div>
+
+
+
+</body></html>

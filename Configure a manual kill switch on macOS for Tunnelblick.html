@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configure a manual kill switch on macOS for Tunnelblick</title>
+  <link rel="stylesheet" href="Configure%20a%20manual%20kill%20switch%20on%20macOS%20for%20Tunnelblick_files/style.css">
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h2 id="center"><center><a href="https://privatevpn.com/"><img src="Configure%20a%20manual%20kill%20switch%20on%20macOS%20for%20Tunnelblick_files/pvpn_logo.png" alt="PrivateVPN"></a></center></h2>
+<h2 id="centerconfigure-a-manual-kill-switch-on-macos-for-tunnelblick"><center>Configure a manual kill switch on macOS for Tunnelblick</center></h2>
+<p><strong>Prerequisites:</strong></p>
+<ul>
+<li>IP address of the VPN gateway you wish to setup for VPN kill switch.</li>
+</ul>
+<p>For the purpose of this guide I am going to use PrivateVPN’s 
+OpenVPN-TUN-UDP server in Chennai, India bearing an IP address: 
+169.38.69.24.</p>
+<p>In order to find out the IP address of VPN gateway, open <a href="https://privatevpn.com/serverlist/">https://privatevpn.com/serverlist/</a>
+ and copy a server’s hostname from Server Address column. Use host 
+command in a terminal window followed by the hostname. Syntax for host 
+command in this case would be:</p>
+<pre><code>$ host in-che.privatevpn.com
+in-che.privatevpn.com has address 169.38.69.24
+</code></pre>
+<ul>
+<li>Changes in Client .ovpn configuration file as follows:</li>
+</ul>
+<p>Open .ovpn configuration file in TextEdit, look for <strong>remote</strong> option and replace the hostname or servername therein with IP address as seen in the image below:</p>
+<p><img src="Configure%20a%20manual%20kill%20switch%20on%20macOS%20for%20Tunnelblick_files/1.jpg" alt="enter image description here"></p>
+<hr>
+<p><strong>Let’s start!</strong></p>
+<p>In order to setup kill switch or VPN firewall on Mac OS X or macOS, we are going to use a command line tool called pf.</p>
+<p>Make sure you have sudo or root access before we start.</p>
+<p>Let us begin by editing the configuration file of pf at /etc/pf.conf in a terminal window as follows:</p>
+<pre><code># nano /etc/pf.conf
+</code></pre>
+<p>In order to block all the connections other than to IP of VPN gateway at a port using a particular protocol append <em>pf.conf</em> and add the following lines:</p>
+<pre><code>block drop all
+pass on lo0
+pass on utun0
+pass out proto udp from any to 169.38.69.24 port 1194
+</code></pre>
+<p>Save and exit.</p>
+<p>Once you are done editing the file. Let us import the newly added rules as follows so that it persists on reboot:</p>
+<pre><code># pfctl -f /etc/pf.conf
+</code></pre>
+<p>Let us turn on the firewall which is not ON by default as follows:</p>
+<pre><code># pfctl -e
+</code></pre>
+<p>Once the pf is enabled. Congrats! Your VPN kill switch or firewall is
+ active. No Internet connection is possible now other than via 
+PrivateVPN’s OpenVPN server’s IP 169.38.69.24 using UDP protocol at port
+ 1194. So unless you connect to it, Internet access is completely 
+denied.</p>
+<blockquote>
+<p>Note: In recent version of OS X or macOS with Tunnelblick OpenVPN client, you might have unused <em>utun</em> interfaces which can be check from a terminal as follows:</p>
+<p><code># ifconfig</code></p>
+<p>So in case you already have an unused <em><strong>utun0</strong></em> for example then change <strong>pass on utun0</strong> in pf.conf to as follows:</p>
+<p><code>pass on utun1</code></p>
+<p>Or else you might get connected but won’t be able to connect anywhere.</p>
+</blockquote>
+</div>
+
+
+
+</body></html>
